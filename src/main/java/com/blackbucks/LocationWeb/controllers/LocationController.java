@@ -3,6 +3,7 @@ package com.blackbucks.LocationWeb.controllers;
 import com.blackbucks.LocationWeb.Services.LocationService;
 import com.blackbucks.LocationWeb.Services.LocationServiceImpl;
 import com.blackbucks.LocationWeb.models.Location;
+import com.blackbucks.LocationWeb.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,9 @@ public class LocationController {
     @Autowired
     LocationServiceImpl service;
 
+    @Autowired
+    EmailUtil emailUtil;
+
     @RequestMapping("/showCreate")
     public String showCreate(){
         return "createLocation";
@@ -27,6 +31,8 @@ public class LocationController {
         Location savedLocation=service.saveLocation(location);
         String msg="Location saved with id "+ location.getId();
         modelMap.addAttribute("msg",msg);
+        emailUtil.sendEmail("smitthakur@gmail.com", "Location Saved",
+        		"Location Saved Successfully and about to return a response");
         return "createLocation";
     }
 
