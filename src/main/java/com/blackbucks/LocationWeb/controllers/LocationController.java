@@ -17,12 +17,12 @@ public class LocationController {
     @Autowired
     LocationServiceImpl service;
 
-    @GetMapping("/showCreate")
+    @RequestMapping("/showCreate")
     public String showCreate(){
         return "createLocation";
     }
 
-    @PostMapping("/saveLoc")
+    @RequestMapping("/saveLoc")
     public String saveLocation(@ModelAttribute("location")Location location, ModelMap modelMap){
         Location savedLocation=service.saveLocation(location);
         String msg="Location saved with id "+ location.getId();
@@ -30,10 +30,33 @@ public class LocationController {
         return "createLocation";
     }
 
-    @GetMapping("/viewLocations")
+    @RequestMapping("/viewLocations")
     public String viewLocations(ModelMap modelMap){
         List<Location> locations= service.getAllLocations();
         modelMap.addAttribute("locations",locations);
+        return "displayLocations";
+    }
+
+    @RequestMapping("/deleteLocation")
+    public String deleteLocation(@RequestParam("id") int id, ModelMap modelMap){
+        service.deleteLocation(id);
+        List<Location> locations= service.getAllLocations();
+        modelMap.addAttribute("locations",locations);
+        return "displayLocations";
+    }
+
+    @RequestMapping("/showUpdate")
+    public String showUpdate(@RequestParam("id") int id, ModelMap modelMap) {
+        Location location = service.getLocation(id);
+        modelMap.addAttribute("location", location);
+        return "updateLocation";
+    }
+
+    @RequestMapping("/updateLoc")
+    public String updateLocation(@ModelAttribute("location") Location location, ModelMap modelMap) {
+        service.updateLocation(location);
+        List<Location> locations = service.getAllLocations();
+        modelMap.addAttribute("locations", locations);
         return "displayLocations";
     }
 }

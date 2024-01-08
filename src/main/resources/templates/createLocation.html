@@ -8,18 +8,17 @@
 
 <form action="saveLoc" method="post">
 <pre>
-Id: <input type="text" name="id"/>
 Code: <input type="text" name="code"/>
 Name: <input type="text" name="name"/>
 Type: 
-	  Urban <input type="radio" name="type" value="URBAN"/>
-	  Rural <input type="radio" name="type" value="RURAL"/>
+	  Urban <input type="radio" name="type" value="Urban"/>
+	  Rural <input type="radio" name="type" value="Rural"/>
 <input type="submit" value="save"/>
 </pre>
 </form>
 <b th:text="${msg}"></b>
 
-<a href="displayLocations">View All</a>
+<a href="viewLocations">View All</a>
 
 </body>
 </html>

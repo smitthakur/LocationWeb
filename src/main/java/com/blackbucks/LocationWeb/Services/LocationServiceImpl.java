@@ -25,8 +25,8 @@ public class LocationServiceImpl implements LocationService{
     }
 
     @Override
-    public void deleteLocation(Location location) {
-        locationRepository.delete(location);
+    public void deleteLocation(int id) {
+        locationRepository.deleteById(id);
     }
 
     @Override
