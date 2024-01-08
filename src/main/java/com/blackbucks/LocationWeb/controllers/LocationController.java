@@ -6,25 +6,23 @@ import com.blackbucks.LocationWeb.models.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-//@RequestMapping("/products")
+//@RequestMapping("/locationWeb")
 public class LocationController {
 
     @Autowired
     LocationServiceImpl service;
 
-    @RequestMapping("/showCreate")
+    @GetMapping("/showCreate")
     public String showCreate(){
         return "createLocation";
     }
 
-    @RequestMapping("/saveLoc")
+    @PostMapping("/saveLoc")
     public String saveLocation(@ModelAttribute("location")Location location, ModelMap modelMap){
         Location savedLocation=service.saveLocation(location);
         String msg="Location saved with id "+ location.getId();
@@ -32,7 +30,7 @@ public class LocationController {
         return "createLocation";
     }
 
-    @RequestMapping("/displayLoc")
+    @GetMapping("/viewLocations")
     public String viewLocations(ModelMap modelMap){
         List<Location> locations= service.getAllLocations();
         modelMap.addAttribute("locations",locations);
